@@ -22,18 +22,17 @@ public class CartController : MonoBehaviour
     private Quaternion rotation = new Quaternion(0,0,0,1);
 
     public GameObject goblinPosLocation;
-
-    //[SerializeField]
-    //[HideInInspector]
-    public List <Transform> goblinSeats = new();
+    [SerializeField]
+    [HideInInspector]
+    public Component[] goblinSeats;
 
     void Start()
     {
-        foreach (Transform t in goblinPosLocation.transform)
+        goblinSeats = GetComponentsInChildren<CartSeat>();
+        foreach (Component goblinSeats in goblinSeats)
         {
-            goblinSeats.Add(t);
+            //Debug.Log(goblinSeats);
         }
-
     }
 
 void Update()
@@ -147,4 +146,11 @@ void Update()
         RepositionCart();
     }
 
+    void GetGoblinSeat()
+    {
+        //foreach (GameObject item in goblinSeats)
+        //{
+            
+        //}
+    }
 }

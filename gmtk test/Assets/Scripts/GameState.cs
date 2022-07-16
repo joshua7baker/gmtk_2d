@@ -5,16 +5,41 @@ using UnityEngine;
 public class GameState : MonoBehaviour
 {
     private CartController cartController;
-    private List<GameObject> cartSeats;
+    //private List<Component> cartSeats = new();
+    public GameObject cart;
+    public GameObject[] goblinSeats;
     private GameObject[] goblins;
     void Start()
     {
+        cart = GameObject.FindGameObjectWithTag("Cart");
         cartController = GameObject.Find("Cart").GetComponent<CartController>();
+        
         goblins = GameObject.FindGameObjectsWithTag("Goblin");
+        goblinSeats = GameObject.FindGameObjectsWithTag("Seat");
+
+
+        foreach (GameObject seat in goblinSeats)
+        {
+            Debug.Log(seat);
+        }
 
         foreach (GameObject goblin in goblins)
         {
-            Debug.Log(goblins);
+            foreach (GameObject seat in goblinSeats)
+            {
+                CartSeat cartScript = seat.GetComponent<CartSeat>();
+                
+                if (!cartScript.occupied)
+                {
+                    cartScript.OnAttachGoblin(goblin, seat);
+                    Debug.Log("Sit Gobbo");
+                    break;
+                }
+                else
+                {   
+                    Debug.Log("Seat full");
+                }
+            }
         }
 
 
@@ -22,11 +47,11 @@ public class GameState : MonoBehaviour
     }
     void Update()
     {
-        foreach (GameObject goblin in goblins)
-        {
-            Transform cartSeatToUse = cartController.sea
+        //foreach (GameObject goblin in goblins)
+        //{
+        //    //Transform cartSeatToUse = cartController.goblinSeats.
             
-        }
+        //}
 
         
     }

@@ -6,7 +6,8 @@ public class CartSeat : MonoBehaviour
 {
     [SerializeField]
     [HideInInspector]
-    private bool occupied;
+    public bool occupied;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,5 +18,13 @@ public class CartSeat : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnAttachGoblin(GameObject goblin, GameObject seat)
+    {
+        Debug.Log("reached");
+        goblin.transform.parent = this.transform;
+        goblin.transform.position = seat.transform.position;
+        occupied = true;
     }
 }
