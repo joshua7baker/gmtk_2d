@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 3310d0c61e5f2e543ad5c06d91b8f20c
+  - enabled: 1
+    path: Assets/Scenes/Level.unity
+    guid: 6e1f3f4727eb47840955eff36b3d49f5
+  - enabled: 1
     path: Assets/Scenes/CartCreation.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}
