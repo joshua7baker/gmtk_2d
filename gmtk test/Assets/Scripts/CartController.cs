@@ -14,6 +14,7 @@ public class CartController : MonoBehaviour
     float forwardInput = 1;
 
     bool canMove;
+    bool isRepositioning;
 
     private float rotationSpeed = 1;
     private Quaternion rotation = new Quaternion(0,0,0,1);
@@ -25,29 +26,46 @@ public class CartController : MonoBehaviour
 
     void Update()
     {
-        BalanceRotation();
+        CheckCanMove();
+
+        if (!isRepositioning)
+        {
+            BalanceRotation();
+        }
+
+        if (!canMove)
+        {
+            if (!isRepositioning)
+            {
+                RepositionCart();
+            }
+            else if (isRepositioning)
+            {
+
+            }
+        }
+
     }
 
     private void FixedUpdate()
     {
-        CheckCanMove();
+
         if (canMove)
         {
             ApplySpeed();
         }
         else
         {
-            Debug.Log("Cant move");
+
         }
     }
-
 
     void ApplySpeed()
     {
         rearWheel.AddTorque(-forwardInput * speed * Time.deltaTime);
         frontWheel.AddTorque(-forwardInput * speed * Time.deltaTime);
     }
-    // Adjust rotation to balance cart back to 0,0,0
+    //Adjust rotation to balance cart back to 0,0,0
     void BalanceRotation()
     {
         if (transform.rotation.eulerAngles.z < -1)
@@ -60,17 +78,54 @@ public class CartController : MonoBehaviour
         }
     }
 
+    //Update movement bool based on rotation
     void CheckCanMove()
     {
-        if (transform.rotation.eulerAngles.z !< 90 && transform.rotation.eulerAngles.z !> 90)
+        if (transform.eulerAngles.z > 90 && transform.eulerAngles.z < 290 || transform.eulerAngles.z < -90 && transform.eulerAngles.z < -290)
         {
-            canMove = true;
-            Debug.Log(canMove);
+            canMove = false;
         }
         else
         {
-            canMove = false;
-            Debug.Log(canMove);
+            canMove = true;
         }
     }
+
+    //Reposition cart by popping it up and rotating before allowing movement again
+    void RepositionCart()
+    {
+        CheckCanMove();
+
+        if (!canMove)
+        {
+            if (!isRepositioning)
+            {
+                Debug.Log("repo");
+                isRepositioning = true;
+                rearWheel.AddForce(Vector2.up * 15, ForceMode2D.Impulse);
+                frontWheel.AddForce(Vector2.up * 15, ForceMode2D.Impulse);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 1000);
+
+                StartCoroutine(checkCartPositioning());
+            }
+        }
+        else
+        {
+            isRepositioning = false;
+        }
+
+    }
+
+    IEnumerator checkCartPositioning()
+    {
+        yield return new WaitForSeconds(3);
+        Debug.Log(canMove);
+        Debug.Log(isRepositioning);
+        isRepositioning = false;
+        RepositionCart();
+
+
+    }
+
 }
