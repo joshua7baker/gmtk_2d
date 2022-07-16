@@ -11,20 +11,32 @@ public class CartController : MonoBehaviour
 
     public float acceleration;
     public float speed;
-    float forwardInput = 1;
+    private float forwardInput = 1;
+    private int repositionForce = 10;
 
+    bool isGrounded;
     bool canMove;
     bool isRepositioning;
 
     private float rotationSpeed = 1;
     private Quaternion rotation = new Quaternion(0,0,0,1);
 
+    public GameObject goblinPosLocation;
+
+    //[SerializeField]
+    //[HideInInspector]
+    public List <Transform> goblinSeats = new();
+
     void Start()
     {
+        foreach (Transform t in goblinPosLocation.transform)
+        {
+            goblinSeats.Add(t);
+        }
 
     }
 
-    void Update()
+void Update()
     {
         CheckCanMove();
 
@@ -35,13 +47,9 @@ public class CartController : MonoBehaviour
 
         if (!canMove)
         {
-            if (!isRepositioning)
+            if (!isRepositioning && isGrounded)
             {
                 RepositionCart();
-            }
-            else if (isRepositioning)
-            {
-
             }
         }
 
@@ -57,6 +65,21 @@ public class CartController : MonoBehaviour
         else
         {
 
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGrounded = false;
         }
     }
 
@@ -94,16 +117,14 @@ public class CartController : MonoBehaviour
     //Reposition cart by popping it up and rotating before allowing movement again
     void RepositionCart()
     {
-        CheckCanMove();
-
         if (!canMove)
         {
             if (!isRepositioning)
             {
                 Debug.Log("repo");
                 isRepositioning = true;
-                rearWheel.AddForce(Vector2.up * 15, ForceMode2D.Impulse);
-                frontWheel.AddForce(Vector2.up * 15, ForceMode2D.Impulse);
+                rearWheel.AddForce(Vector2.up * repositionForce, ForceMode2D.Impulse);
+                frontWheel.AddForce(Vector2.up * repositionForce, ForceMode2D.Impulse);
 
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 1000);
 
@@ -124,8 +145,6 @@ public class CartController : MonoBehaviour
         Debug.Log(isRepositioning);
         isRepositioning = false;
         RepositionCart();
-
-
     }
 
 }
