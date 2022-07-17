@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CartCreation.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/ParralaxTsting.unity
+    guid: 5071d1cfe4ee69d48aa0d0b2f5845a97
+  - enabled: 1
+    path: Assets/Scenes/Menu 1.unity
+    guid: fc0ea3f41deabb646854efe2a5ee2aa2
   m_configObjects: {}
