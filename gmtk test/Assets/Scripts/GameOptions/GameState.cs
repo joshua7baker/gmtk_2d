@@ -44,9 +44,6 @@ public class GameState : MonoBehaviour
                 }
             }
         }
-
-
-
     }
     void Update()
     {
@@ -55,7 +52,5 @@ public class GameState : MonoBehaviour
         //    //Transform cartSeatToUse = cartController.goblinSeats.
             
         //}
-
-        
     }
 }

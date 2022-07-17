@@ -135,8 +135,8 @@ void Update()
             {
                 Debug.Log("repo");
                 isRepositioning = true;
-                //rearWheel.AddForce(Vector2.up * repositionForce, ForceMode2D.Impulse);
-                //frontWheel.AddForce(Vector2.up * repositionForce, ForceMode2D.Impulse);
+                rearWheelRb.AddForce(Vector2.up * repositionForce, ForceMode2D.Impulse);
+                frontWheelRb.AddForce(Vector2.up * repositionForce, ForceMode2D.Impulse);
 
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 1000);
 
@@ -162,7 +162,7 @@ void Update()
     public void receiveDamage(float dmgReceived)
     {
         currentHealth -= dmgReceived;
-        Debug.Log(currentHealth);
+        //Debug.Log(currentHealth);
 
         if (currentHealth <= 0)
         {

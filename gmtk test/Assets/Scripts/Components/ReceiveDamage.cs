@@ -27,14 +27,15 @@ public class ReceiveDamage : MonoBehaviour
             {
                 collidedObj.hasDamaged = true;
 
-                GameObject hostile = collision.collider.gameObject;
-                HostileComponent hostileScript = hostile.GetComponent<HostileComponent>();
+                //GameObject hostile = collision.collider.gameObject;
+                //HostileComponent hostileScript = collidedObj.GetComponent<HostileComponent>();
 
-                float damageToAppy = hostileScript.baseDamage;
+                float damageToAppy = collidedObj.baseDamage;
 
+                collidedObj.OnCartCollision();
                 cartController.receiveDamage(damageToAppy);
             }
-         
+
         }
            
     }
