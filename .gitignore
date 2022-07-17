@@ -60,3 +60,4 @@ crashlytics-build.properties
 
 gmtk test/ProjectSettings/EditorSettings.asset
 gmtk test/ProjectSettings/EditorSettings.asset
+gmtk test/UserSettings/EditorUserSettings.asset
