@@ -53,4 +53,9 @@ public class GameState : MonoBehaviour
             
         //}
     }
+
+    void AddGoblin()
+    {
+
+    }
 }
