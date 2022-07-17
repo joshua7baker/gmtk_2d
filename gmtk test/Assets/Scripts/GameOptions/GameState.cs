@@ -12,7 +12,7 @@ public class GameState : MonoBehaviour
     public GameObject[] goblinSeats;
     private GameObject[] goblins;
 
-    private GameObject[] goblinsAvailable;
+    private List<GameObject> goblinsAvailable = new();
     private GameObject[] goblinsAssigned;
     void Start()
     {
@@ -26,26 +26,11 @@ public class GameState : MonoBehaviour
 
         foreach (GameObject seat in goblinSeats)
         {
-            //Debug.Log(seat);
         }
 
         foreach (GameObject goblin in goblins)
         {
-            foreach (GameObject seat in goblinSeats)
-            {
-                CartSeat cartScript = seat.GetComponent<CartSeat>();
-                
-                if (!cartScript.occupied)
-                {
-                    cartScript.OnAttachGoblin(goblin, seat);
-                    //Debug.Log("Sit Gobbo");
-                    break;
-                }
-                else
-                {   
-                    //Debug.Log("Seat full");
-                }
-            }
+
         }
     }
     void Update()
@@ -53,27 +38,44 @@ public class GameState : MonoBehaviour
         //foreach (GameObject goblin in goblins)
         //{
         //    //Transform cartSeatToUse = cartController.goblinSeats.
-            
+
         //}
     }
 
     public void PurchaseGoblin()
     {
-        Debug.Log("reachd");
-
         foreach (GameObject space in goblinWaitingArea)
         {
             WaitingSpace waitingScript = space.GetComponent<WaitingSpace>();
             if (!waitingScript.isOccupied)
             {
                 waitingScript.isOccupied = true;
-                Instantiate(goblinPrefab, space.transform);
+                GameObject goblinSpawned = Instantiate(goblinPrefab, space.transform);
+                goblinsAvailable.Add(goblinSpawned);
+                Debug.Log(goblinSpawned);
+                Debug.Log(goblinsAvailable.Count);
             }
         }
     }
 
     public void AddGobboToCart()
     {
-        s
+        GameObject goblinToAttach = goblinsAvailable[0];
+        goblinsAvailable.Remove(goblinToAttach);
+        AttachToCart(goblinToAttach);
+    }
+    private void AttachToCart(GameObject goblin)
+    {
+        foreach (GameObject seat in goblinSeats)
+        {
+            CartSeat cartScript = seat.GetComponent<CartSeat>();
+            //Debug.Log(cartScript);
+            if (!cartScript.occupied)
+            {
+                cartScript.OnAttachGoblin(goblin, seat);
+                break;
+            }
+
+        }
     }
 }

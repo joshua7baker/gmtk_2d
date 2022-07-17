@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PreGameScreen : MonoBehaviour
 {
-    GameState gameState;
+    private GameState gameStateScript;
+    private GameObject gameState;
     void Start()
     {
-        gameState.gameObject.GetComponent<GameState>();
+        gameState = GameObject.Find("GameState");
+        gameStateScript = gameState.GetComponent<GameState>();
     }
 
     void Update()
@@ -17,6 +19,6 @@ public class PreGameScreen : MonoBehaviour
 
     public void AddGoblinToCart()
     {
-
+        gameStateScript.AddGobboToCart();
     }
 }

@@ -69,7 +69,7 @@ public class ShopScript : MonoBehaviour
 				goblinSlider.value = currentGoblins;
 				Debug.Log("Goblin Upgraded");
 
-				gameState.AddGoblin();
+				gameState.PurchaseGoblin();
 			}
 			else
 			{
