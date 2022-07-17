@@ -9,6 +9,7 @@ TagManager:
   - Goblin
   - Seat
   - Hostile
+  - GoblinWaitingArea
   layers:
   - Default
   - TransparentFX

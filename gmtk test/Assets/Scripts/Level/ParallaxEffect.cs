@@ -5,13 +5,14 @@ using UnityEngine;
 public class ParallaxEffect : MonoBehaviour
 {
     private float lenght, startpos;
-    public GameObject cam;
+    private GameObject cam;
     public float parallaxEffect;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
         startpos = transform.position.x; //find start position
         lenght = GetComponent<SpriteRenderer>().bounds.size.x; //give us the size of the sprite
         

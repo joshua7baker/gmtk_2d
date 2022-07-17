@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ShopScript : MonoBehaviour
 {
-
+	private GameState gameState;
 	public Slider goblinSlider, armourSlider;
 
 	public int maxGoblins, maxArmour, minGoblins, minArmour;
@@ -19,6 +19,7 @@ public class ShopScript : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		gameState = Component.FindObjectOfType<GameState>();
 		SetDefaults();
 	}
 	
@@ -59,7 +60,7 @@ public class ShopScript : MonoBehaviour
 	{
 		if (currentGoblins < maxGoblins)
 		{
-			if (cash > price)
+			if (cash >= price)
 			{
 				cash -= price;
 				cashText.text = cash + "g";
@@ -67,6 +68,8 @@ public class ShopScript : MonoBehaviour
 				PlayerPrefs.SetInt("goblins", currentGoblins);
 				goblinSlider.value = currentGoblins;
 				Debug.Log("Goblin Upgraded");
+
+				gameState.AddGoblin();
 			}
 			else
 			{

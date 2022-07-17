@@ -286,7 +286,7 @@ MonoBehaviour:
   frontWheelRb: {fileID: 1473032527836867643}
   cageObjectParent: {fileID: 158139688120540274}
   acceleration: 0
-  speed: 100
+  speed: 0
   goblinPosLocation: {fileID: 4419730493267079310}
   goblinSeats: []
   currentHealth: 0

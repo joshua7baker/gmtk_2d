@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d713fbe1a8cc24aa93040424b29667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goblinPrefab: {fileID: 9190334493606258092, guid: c1703fc0975999148847d3e5cf9f9c34, type: 3}
+  goblinSeats: []
