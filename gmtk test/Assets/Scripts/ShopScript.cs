@@ -7,21 +7,21 @@ using UnityEngine.SceneManagement;
 public class ShopScript : MonoBehaviour
 {
 
-	public Slider healthSlider, armourSlider;
+	public Slider goblinSlider, armourSlider;
 
-	public int maxHealth, maxArmour;
-	int currentHealth, currentArmour;
+	public int maxGoblins, maxArmour, minGoblins, minArmour;
+	int currentGoblins, currentArmour;
 
 	int cash;
 
 	public Text cashText;
-
+	
 	// Use this for initialization
 	void Start()
 	{
-		SetDefs();
+		SetDefaults();
 	}
-
+	
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Space))
@@ -34,36 +34,39 @@ public class ShopScript : MonoBehaviour
 			SceneManager.LoadScene("Level");
 		}
 	}
+	
 
-
-	void SetDefs()
+	void SetDefaults()
 	{
-		cash = 1000;
-		cashText.text = cash + "$";
+		cash = 100;
+		cashText.text = cash + "g";
 
-		currentHealth = PlayerPrefs.GetInt("health", 0);
+		currentGoblins = PlayerPrefs.GetInt("goblins", 0);
 		currentArmour = PlayerPrefs.GetInt("armour", 0);
 
-		healthSlider.maxValue = maxHealth;
+		goblinSlider.maxValue = maxGoblins;
 		armourSlider.maxValue = maxArmour;
 
-		healthSlider.value = currentHealth;
+		goblinSlider.minValue = minGoblins;
+		armourSlider.minValue = minArmour;
+
+		goblinSlider.value = currentGoblins;
 		armourSlider.value = currentArmour;
 
 	}
 
-	public void buyHealth(int price)
+	public void buyGoblins(int price)
 	{
-		if (currentHealth < maxHealth)
+		if (currentGoblins < maxGoblins)
 		{
 			if (cash > price)
 			{
 				cash -= price;
-				cashText.text = cash + "$";
-				currentHealth += 5;
-				PlayerPrefs.SetInt("health", currentHealth);
-				healthSlider.value = currentHealth;
-				Debug.Log("Health Upgraded");
+				cashText.text = cash + "g";
+				currentGoblins += 1;
+				PlayerPrefs.SetInt("goblins", currentGoblins);
+				goblinSlider.value = currentGoblins;
+				Debug.Log("Goblin Upgraded");
 			}
 			else
 			{
@@ -72,7 +75,31 @@ public class ShopScript : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log("Health full");
+			Debug.Log("Goblin full");
+		}
+	}
+
+	public void sellGoblins(int price)
+	{
+		if (currentGoblins > minGoblins)
+		{
+			if (cash > price)
+			{
+				cash += price;
+				cashText.text = cash + "g";
+				currentGoblins -= 1;
+				PlayerPrefs.SetInt("goblins", currentGoblins);
+				goblinSlider.value = currentGoblins;
+				Debug.Log("Goblin Upgraded");
+			}
+			else
+			{
+				Debug.Log("out of cash");
+			}
+		}
+		else
+		{
+			Debug.Log("Goblin full");
 		}
 	}
 
@@ -83,8 +110,8 @@ public class ShopScript : MonoBehaviour
 			if (cash > price)
 			{
 				cash -= price;
-				cashText.text = cash + "$";
-				currentArmour += 10;
+				cashText.text = cash + "g";
+				currentArmour += 1;
 				PlayerPrefs.SetInt("armour", currentArmour);
 				armourSlider.value = currentArmour;
 				Debug.Log("armour Upgraded");
@@ -97,6 +124,30 @@ public class ShopScript : MonoBehaviour
 		else
 		{
 			Debug.Log("armour full");
+		}
+	}
+
+	public void sellArmour(int price)
+	{
+		if (currentArmour > minArmour)
+		{
+			if (cash > price)
+			{
+				cash += price;
+				cashText.text = cash + "g";
+				currentArmour -= 1;
+				PlayerPrefs.SetInt("armour", currentArmour);
+				armourSlider.value = currentArmour;
+				Debug.Log("armour Upgraded");
+			}
+			else
+			{
+				Debug.Log("out of cash");
+			}
+		}
+		else
+		{
+			Debug.Log("Armour full");
 		}
 	}
 
