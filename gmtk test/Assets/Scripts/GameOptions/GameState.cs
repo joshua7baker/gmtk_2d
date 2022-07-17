@@ -46,17 +46,29 @@ public class GameState : MonoBehaviour
     {
         foreach (GameObject space in goblinWaitingArea)
         {
-            WaitingSpace waitingScript = space.GetComponent<WaitingSpace>();
-            if (!waitingScript.isOccupied)
+            bool spaceFound = false;
+
+            if (!spaceFound)
             {
-                waitingScript.isOccupied = true;
-                GameObject goblinSpawned = Instantiate(goblinPrefab, space.transform);
-                goblinsAvailable.Add(goblinSpawned);
-                Debug.Log(goblinSpawned);
-                Debug.Log(goblinsAvailable.Count);
+                WaitingSpace waitingScript = space.GetComponent<WaitingSpace>();
+                if (!waitingScript.isOccupied)
+                {
+                    waitingScript.isOccupied = true;
+                    GameObject goblinSpawned = Instantiate(goblinPrefab, space.transform);
+                    goblinsAvailable.Add(goblinSpawned);
+
+                    Debug.Log(goblinSpawned);
+                    Debug.Log(goblinsAvailable.Count);
+                    spaceFound = true;
+                    break;
+                }
             }
+            else break;
+            
         }
     }
+
+    
 
     public void AddGobboToCart()
     {

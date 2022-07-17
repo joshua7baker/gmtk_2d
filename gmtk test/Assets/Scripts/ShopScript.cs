@@ -58,28 +58,29 @@ public class ShopScript : MonoBehaviour
 
 	public void buyGoblins(int price)
 	{
-		if (currentGoblins < maxGoblins)
-		{
-			if (cash >= price)
-			{
-				cash -= price;
-				cashText.text = cash + "g";
-				currentGoblins += 1;
-				PlayerPrefs.SetInt("goblins", currentGoblins);
-				goblinSlider.value = currentGoblins;
-				Debug.Log("Goblin Upgraded");
+		gameState.PurchaseGoblin();
 
-				gameState.PurchaseGoblin();
-			}
-			else
-			{
-				Debug.Log("out of cash");
-			}
-		}
-		else
-		{
-			Debug.Log("Goblin full");
-		}
+		//if (currentGoblins < maxGoblins)
+		//{
+		//	if (cash >= price)
+		//	{
+		//		cash -= price;
+		//		cashText.text = cash + "g";
+		//		currentGoblins += 1;
+		//		PlayerPrefs.SetInt("goblins", currentGoblins);
+		//		goblinSlider.value = currentGoblins;
+		//		Debug.Log("Goblin Upgraded");
+
+		//	}
+		//	else
+		//	{
+		//		Debug.Log("out of cash");
+		//	}
+		//}
+		//else
+		//{
+		//	Debug.Log("Goblin full");
+		//}
 	}
 
 	public void sellGoblins(int price)
