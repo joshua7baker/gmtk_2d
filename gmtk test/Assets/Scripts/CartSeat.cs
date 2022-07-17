@@ -22,7 +22,6 @@ public class CartSeat : MonoBehaviour
 
     public void OnAttachGoblin(GameObject goblin, GameObject seat)
     {
-        Debug.Log("reached");
         goblin.transform.parent = this.transform;
         goblin.transform.position = seat.transform.position;
         occupied = true;

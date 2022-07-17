@@ -90,6 +90,8 @@ GameObject:
   - component: {fileID: 5646046438989616897}
   - component: {fileID: 979997901298832087}
   - component: {fileID: 677989889809354210}
+  - component: {fileID: 8415815847890579894}
+  - component: {fileID: 8301155720667117635}
   m_Layer: 9
   m_Name: Floor
   m_TagString: Untagged
@@ -152,7 +154,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -190,6 +192,40 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8415815847890579894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291471029460549915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ab5b43695706f4b886db735dd6a47a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cartController: {fileID: 1473032527832193755}
+--- !u!50 &8301155720667117635
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291471029460549915}
+  m_BodyType: 2
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1473032527832193753
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,12 +280,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cart: {fileID: 1473032527832193756}
-  rearWheel: {fileID: 1473032528503498618}
-  frontWheel: {fileID: 1473032527836867643}
+  rearWheel: {fileID: 1473032528503498502}
+  frontWheel: {fileID: 1473032527836867527}
+  rearWheelRb: {fileID: 1473032528503498618}
+  frontWheelRb: {fileID: 1473032527836867643}
+  cageObjectParent: {fileID: 158139688120540274}
   acceleration: 0
   speed: 100
   goblinPosLocation: {fileID: 4419730493267079310}
   goblinSeats: []
+  currentHealth: 0
+  maxHealth: 0
 --- !u!212 &1473032527832193759
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -290,7 +331,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -409,6 +450,7 @@ GameObject:
   - component: {fileID: 1473032527836867642}
   - component: {fileID: 1473032527836867641}
   - component: {fileID: 1473032527836867643}
+  - component: {fileID: 4332221989548734344}
   m_Layer: 8
   m_Name: FrontWheel
   m_TagString: Untagged
@@ -520,6 +562,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4332221989548734344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473032527836867527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ab5b43695706f4b886db735dd6a47a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cartController: {fileID: 1473032527832193755}
 --- !u!1 &1473032528503498502
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +587,7 @@ GameObject:
   - component: {fileID: 1473032528503498617}
   - component: {fileID: 1473032528503498616}
   - component: {fileID: 1473032528503498618}
+  - component: {fileID: 360270799087104525}
   m_Layer: 8
   m_Name: RearWheel
   m_TagString: Untagged
@@ -643,6 +699,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &360270799087104525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473032528503498502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ab5b43695706f4b886db735dd6a47a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cartController: {fileID: 1473032527832193755}
 --- !u!1 &1519359618391095341
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,6 +940,8 @@ GameObject:
   - component: {fileID: 6484514867406174801}
   - component: {fileID: 5681484428972335619}
   - component: {fileID: 7386691055635641000}
+  - component: {fileID: 1178935982938711015}
+  - component: {fileID: 4902056572650479425}
   m_Layer: 9
   m_Name: CageLeft
   m_TagString: Untagged
@@ -933,9 +1004,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.009433985, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -971,6 +1042,40 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1178935982938711015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5335366213851647208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ab5b43695706f4b886db735dd6a47a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cartController: {fileID: 1473032527832193755}
+--- !u!50 &4902056572650479425
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5335366213851647208}
+  m_BodyType: 2
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7382814313589703206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1027,6 +1132,8 @@ GameObject:
   - component: {fileID: 4834758354375969850}
   - component: {fileID: 3391950575661886702}
   - component: {fileID: 2266908902339538454}
+  - component: {fileID: 5715506039901568928}
+  - component: {fileID: 8916069570266410857}
   m_Layer: 9
   m_Name: CageRight
   m_TagString: Untagged
@@ -1089,7 +1196,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1127,3 +1234,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5715506039901568928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663227317723206142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ab5b43695706f4b886db735dd6a47a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cartController: {fileID: 1473032527832193755}
+--- !u!50 &8916069570266410857
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663227317723206142}
+  m_BodyType: 2
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

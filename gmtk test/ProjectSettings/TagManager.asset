@@ -8,6 +8,7 @@ TagManager:
   - Cart
   - Goblin
   - Seat
+  - Hostile
   layers:
   - Default
   - TransparentFX

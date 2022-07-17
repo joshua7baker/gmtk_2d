@@ -6,25 +6,33 @@ public class CartController : MonoBehaviour
 {
 
     public Rigidbody2D cart;
-    public Rigidbody2D rearWheel;
-    public Rigidbody2D frontWheel;
+    public GameObject rearWheel;
+    public GameObject frontWheel;
+    public Rigidbody2D rearWheelRb;
+    public Rigidbody2D frontWheelRb;
+
+
+    public GameObject cageObjectParent;
+    private Rigidbody2D[] cageObjects;
 
     public float acceleration;
     public float speed;
     private float forwardInput = 1;
     private int repositionForce = 10;
+    private float rotationSpeed = 1;
+    private Quaternion rotation = new Quaternion(0, 0, 0, 1);
 
     bool isGrounded;
     bool canMove;
     bool isRepositioning;
-
-    private float rotationSpeed = 1;
-    private Quaternion rotation = new Quaternion(0,0,0,1);
+    bool isAlive = true;
 
     public GameObject goblinPosLocation;
-    [SerializeField]
     [HideInInspector]
     public Component[] goblinSeats;
+
+    public float currentHealth;
+    public float maxHealth;
 
     void Start()
     {
@@ -32,6 +40,11 @@ public class CartController : MonoBehaviour
         foreach (Component goblinSeats in goblinSeats)
         {
             //Debug.Log(goblinSeats);
+        }
+
+        cageObjects = cageObjectParent.transform.GetComponentsInChildren<Rigidbody2D>();
+        foreach (Rigidbody2D item in cageObjects)
+        {
         }
     }
 
@@ -57,7 +70,7 @@ void Update()
     private void FixedUpdate()
     {
 
-        if (canMove)
+        if (canMove && isAlive)
         {
             ApplySpeed();
         }
@@ -84,8 +97,8 @@ void Update()
 
     void ApplySpeed()
     {
-        rearWheel.AddTorque(-forwardInput * speed * Time.deltaTime);
-        frontWheel.AddTorque(-forwardInput * speed * Time.deltaTime);
+        rearWheelRb.AddTorque(-forwardInput * speed * Time.deltaTime);
+        frontWheelRb.AddTorque(-forwardInput * speed * Time.deltaTime);
     }
     //Adjust rotation to balance cart back to 0,0,0
     void BalanceRotation()
@@ -122,8 +135,8 @@ void Update()
             {
                 Debug.Log("repo");
                 isRepositioning = true;
-                rearWheel.AddForce(Vector2.up * repositionForce, ForceMode2D.Impulse);
-                frontWheel.AddForce(Vector2.up * repositionForce, ForceMode2D.Impulse);
+                //rearWheel.AddForce(Vector2.up * repositionForce, ForceMode2D.Impulse);
+                //frontWheel.AddForce(Vector2.up * repositionForce, ForceMode2D.Impulse);
 
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 1000);
 
@@ -146,11 +159,34 @@ void Update()
         RepositionCart();
     }
 
-    void GetGoblinSeat()
+    public void receiveDamage(float dmgReceived)
     {
-        //foreach (GameObject item in goblinSeats)
-        //{
-            
-        //}
+        currentHealth -= dmgReceived;
+        Debug.Log(currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            CartDestroy();
+        }
+
+    }
+
+    public void CartDestroy()
+    {
+
+        isAlive = false;
+
+        foreach (Rigidbody2D item in cageObjects)
+        {
+            item.bodyType = RigidbodyType2D.Dynamic;
+            item.simulated = true;
+        }
+
+        WheelJoint2D[] wheelJoints;
+        wheelJoints = this.GetComponents<WheelJoint2D>();
+        foreach (WheelJoint2D joint in wheelJoints)
+        {
+            Destroy(joint);
+        }
     }
 }

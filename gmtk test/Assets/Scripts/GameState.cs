@@ -9,6 +9,9 @@ public class GameState : MonoBehaviour
     public GameObject cart;
     public GameObject[] goblinSeats;
     private GameObject[] goblins;
+
+    private GameObject[] goblinsAvailable;
+    private GameObject[] goblinsAssigned;
     void Start()
     {
         cart = GameObject.FindGameObjectWithTag("Cart");
@@ -20,7 +23,7 @@ public class GameState : MonoBehaviour
 
         foreach (GameObject seat in goblinSeats)
         {
-            Debug.Log(seat);
+            //Debug.Log(seat);
         }
 
         foreach (GameObject goblin in goblins)
@@ -32,12 +35,12 @@ public class GameState : MonoBehaviour
                 if (!cartScript.occupied)
                 {
                     cartScript.OnAttachGoblin(goblin, seat);
-                    Debug.Log("Sit Gobbo");
+                    //Debug.Log("Sit Gobbo");
                     break;
                 }
                 else
                 {   
-                    Debug.Log("Seat full");
+                    //Debug.Log("Seat full");
                 }
             }
         }
