@@ -11,9 +11,11 @@ public class CartController : MonoBehaviour
     public Rigidbody2D rearWheelRb;
     public Rigidbody2D frontWheelRb;
 
+    private GameObject cam;
+    private CameraController camController;
 
     public GameObject cageObjectParent;
-    private Rigidbody2D[] cageObjects;
+    private Rigidbody2D[] breakableComponents;
 
     public float acceleration;
     public float speed;
@@ -36,15 +38,20 @@ public class CartController : MonoBehaviour
 
     void Start()
     {
+
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
+        camController = cam.GetComponent<CameraController>();
+
         goblinSeats = GetComponentsInChildren<CartSeat>();
         foreach (Component goblinSeats in goblinSeats)
         {
             //Debug.Log(goblinSeats);
         }
 
-        cageObjects = cageObjectParent.transform.GetComponentsInChildren<Rigidbody2D>();
-        foreach (Rigidbody2D item in cageObjects)
+        breakableComponents = cageObjectParent.transform.GetComponentsInChildren<Rigidbody2D>();
+        foreach (Rigidbody2D item in breakableComponents)
         {
+
         }
     }
 
@@ -149,7 +156,6 @@ void Update()
         }
 
     }
-
     IEnumerator checkCartPositioning()
     {
         yield return new WaitForSeconds(3);
@@ -170,16 +176,22 @@ void Update()
         }
 
     }
-
     public void CartDestroy()
     {
 
         isAlive = false;
 
-        foreach (Rigidbody2D item in cageObjects)
+        foreach (Rigidbody2D item in breakableComponents)
         {
             item.bodyType = RigidbodyType2D.Dynamic;
             item.simulated = true;
+        }
+
+
+        Collider2D[] colsToDestroy = cageObjectParent.transform.GetComponentsInChildren<Collider2D>();
+        foreach (Collider2D item in colsToDestroy)
+        {
+            item.isTrigger = false;
         }
 
         WheelJoint2D[] wheelJoints;
@@ -188,5 +200,8 @@ void Update()
         {
             Destroy(joint);
         }
+
+        camController.followCart = false;
+
     }
 }
