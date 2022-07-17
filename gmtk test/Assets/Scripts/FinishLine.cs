@@ -8,6 +8,8 @@ public class FinishLine : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        //GameObject objectHit = collision.gameObject;
+        //Debug.Log(objectHit);
         if(collision.tag == "Cart")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
